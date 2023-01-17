@@ -1,22 +1,32 @@
-import React,{ Component } from 'react'
 import Header from '../Header'
-import Footer from '../Footer'
+import Stories from '../Stories'
+import PostsList from '../PostsList'
+import SearchPosts from '../SearchPosts'
+import SearchContext from '../../Context/PostContext'
+import './index.css'
 
-class Home extends Component {
-  render() {
-    return (
-     <>
-     <div>
-        <h3> Welcome to Reactjs </h3>
-        
-         <h1> Welcome To Header and Footer Pages </h1>
-         <Header/>
-        <Footer/>
-     </div>
-     
-     </>
-    )
-  }
-}
+const Home = () => (
+  <SearchContext.Consumer>
+    {value => {
+      const {searchInput, searchPostView} = value
+      return (
+        <>
+          <Header />
+          <div className="bg-color">
+            {searchPostView ? (
+              <SearchPosts input={searchInput} />
+            ) : (
+              <>
+                <Stories />
+                <PostsList />
+              </>
+            )}
+          </div>
+        </>
+      )
+    }}
+  </SearchContext.Consumer>
+)
+
 export default Home
 
